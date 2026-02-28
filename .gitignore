@@ -1,0 +1,24 @@
+# Server
+server/node_modules/
+server/dist/
+server/data/
+server/.env
+*.db
+*.db-shm
+*.db-wal
+
+# iOS / Xcode
+ios/RecipeSaver.xcodeproj/xcuserdata/
+ios/RecipeSaver.xcodeproj/project.xcworkspace/xcuserdata/
+ios/build/
+*.xcarchive
+DerivedData/
+*.ipa
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Logs
+*.log
+npm-debug.log*

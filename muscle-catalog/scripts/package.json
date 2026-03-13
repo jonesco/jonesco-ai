@@ -1,0 +1,12 @@
+{
+  "name": "muscle-image-downloader",
+  "version": "1.0.0",
+  "description": "Scrapes and downloads M.U.S.C.L.E. figure images",
+  "main": "download-images.js",
+  "scripts": {
+    "download": "node download-images.js"
+  },
+  "dependencies": {
+    "node-fetch": "^2.7.0"
+  }
+}

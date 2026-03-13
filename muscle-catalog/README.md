@@ -20,7 +20,7 @@ A comprehensive, visually stunning catalog of all 236 M.U.S.C.L.E. figures relea
 - **Live text search** — filter by name in real time
 - **Modal lightbox** — click any figure for expanded detail view with nav arrows and keyboard support
 - **External links** — each modal links to eBay search, Google Images, and the Kinnikuman Wiki
-- **Image strategy** — attempts to load from musclefigures.com; gracefully falls back to a beautiful flesh-colored CSS placeholder with figure number and wrestling silhouette
+- **Image strategy** — tries local `images/` first, then musclefigures.com and uofmuscle.com with automatic per-card URL fallback cycling; falls back to a flesh-colored CSS placeholder with figure number and wrestling silhouette
 - **Sticky filter bar** with results count and reset button
 - **Hero parallax** scrolling effect
 - **Mobile responsive** — grid adapts from 130px–160px minimum card width
@@ -49,6 +49,41 @@ python3 -m http.server 8080
 - Primary accent: `#F0A87A` flesh/salmon (the actual color of the figures)
 - Typography: Bebas Neue (display), Orbitron (sub-headings/labels), Rajdhani (body)
 - Series color coding: yellow (Hero), blue (Justice), red (Villain), purple (Devil Knight), gray (Minor), orange (Special)
+
+## Downloading Figure Images
+
+The catalog includes scripts to scrape and download images for all 236 figures into `images/figure-NNN.jpg`. Once downloaded, the catalog will display the local copies automatically.
+
+### Python (recommended)
+
+```bash
+# Install dependencies
+pip install requests beautifulsoup4
+
+# Basic download (uses requests + Wayback Machine CDX)
+python3 scripts/download-images.py
+
+# Better anti-bot bypass using a headless browser
+pip install playwright && playwright install chromium
+python3 scripts/download-images.py --browser
+```
+
+### Node.js
+
+```bash
+cd scripts
+npm install
+node download-images.js
+```
+
+The scripts try these sources in order for each figure:
+
+1. **musclefigures.com** gallery page (scraped for real URLs)
+2. **uofmuscle.com** figure archive (scraped for real URLs)
+3. **Wayback Machine CDX API** (archived copies)
+4. Multiple URL pattern guesses on both sites
+
+Any figures not automatically downloaded are listed at the end with manual download instructions.
 
 ## Data Sources
 

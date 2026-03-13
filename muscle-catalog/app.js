@@ -302,8 +302,16 @@ function badgeClass(series) {
 function imageUrls(num) {
   const p = pad(num);
   return [
+    // Local downloaded images (run scripts/download-images.py to populate)
+    `images/figure-${p}.jpg`,
+    // musclefigures.com — primary online source
     `https://www.musclefigures.com/wp-content/uploads/figure-${p}.jpg`,
     `https://www.musclefigures.com/wp-content/uploads/figure${p}.jpg`,
+    `https://www.musclefigures.com/wp-content/uploads/MUSCLE-${p}.jpg`,
+    `https://www.musclefigures.com/wp-content/uploads/muscle-figure-${p}.jpg`,
+    // uofmuscle.com — secondary online source
+    `http://blog.uofmuscle.com/wp-content/uploads/MUSCLE-Figure-${p}.jpg`,
+    `http://blog.uofmuscle.com/wp-content/uploads/figure-${p}.jpg`,
   ];
 }
 
@@ -356,13 +364,15 @@ function buildCard(fig, idx) {
   const p       = pad(fig.num);
   const color   = seriesColor(fig.series);
   const poseStr = fig.pose ? ` (${fig.pose})` : '';
-  const imgUrl  = imageUrls(fig.num)[0];
+  const urls    = imageUrls(fig.num);
 
   const card = document.createElement('article');
   card.className = 'fig-card';
-  card.dataset.idx    = idx;
-  card.dataset.series = fig.series;
-  card.dataset.name   = (fig.name + ' ' + fig.char).toLowerCase();
+  card.dataset.idx      = idx;
+  card.dataset.series   = fig.series;
+  card.dataset.name     = (fig.name + ' ' + fig.char).toLowerCase();
+  card.dataset.urlIdx   = '0';
+  card.dataset.figNum   = fig.num;
   card.style.setProperty('--series-color', color);
 
   card.innerHTML = `
@@ -370,12 +380,12 @@ function buildCard(fig, idx) {
     <div class="card-series" title="${fig.series}"></div>
     <div class="card-image-zone">
       <img
-        src="${imgUrl}"
+        src="${urls[0]}"
         alt="M.U.S.C.L.E. Figure #${p} — ${fig.name}"
         loading="lazy"
         onerror="handleImgError(this)"
       >
-      <div class="card-placeholder">
+      <div class="card-placeholder" style="display:none">
         <div class="ph-silhouette"></div>
         <span class="ph-num">#${p}</span>
         <span class="ph-name">${fig.name}</span>
@@ -395,8 +405,20 @@ function buildCard(fig, idx) {
 }
 
 function handleImgError(img) {
+  // Try the next fallback URL before showing placeholder
+  const card   = img.closest('.fig-card');
+  const figNum = card ? parseInt(card.dataset.figNum, 10) : null;
+  if (figNum) {
+    const urls  = imageUrls(figNum);
+    const next  = parseInt(card.dataset.urlIdx || '0', 10) + 1;
+    if (next < urls.length) {
+      card.dataset.urlIdx = next;
+      img.src = urls[next];
+      return;
+    }
+  }
+  // All URLs exhausted — show placeholder
   img.style.display = 'none';
-  // placeholder is already there via CSS flex, just ensure it shows
   const ph = img.closest('.card-image-zone').querySelector('.card-placeholder');
   if (ph) ph.style.display = 'flex';
 }

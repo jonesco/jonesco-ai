@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M.U.S.C.L.E. Figure Catalog — All 236 Figures · 1985–1988</title>
+  <meta name="description" content="Complete visual catalog of all 236 M.U.S.C.L.E. figures released by Mattel from 1985–1988. Millions of Unusual Small Creatures Lurking Everywhere.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Black+Ops+One&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- HERO ============================================================ -->
+  <section class="hero" id="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-vignette"></div>
+
+    <div class="hero-floating-nums" id="heroFloatingNums"></div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">Mattel · 1985–1988 · Based on Kinnikuman</div>
+
+      <h1 class="hero-title" id="heroTitle">
+        <span class="hl" style="--i:0">M</span><span class="hd">.</span><span
+              class="hl" style="--i:1">U</span><span class="hd">.</span><span
+              class="hl" style="--i:2">S</span><span class="hd">.</span><span
+              class="hl" style="--i:3">C</span><span class="hd">.</span><span
+              class="hl" style="--i:4">L</span><span class="hd">.</span><span
+              class="hl" style="--i:5">E</span><span class="hd">.</span>
+      </h1>
+
+      <p class="hero-subtitle">Millions of Unusual Small Creatures Lurking Everywhere</p>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hs-num" id="animCount">0</span>
+          <span class="hs-lbl">Figures</span>
+        </div>
+        <div class="hero-stat-sep">·</div>
+        <div class="hero-stat">
+          <span class="hs-num">1985</span>
+          <span class="hs-lbl">First Release</span>
+        </div>
+        <div class="hero-stat-sep">·</div>
+        <div class="hero-stat">
+          <span class="hs-num">1988</span>
+          <span class="hs-lbl">Final Series</span>
+        </div>
+      </div>
+
+      <a href="#catalog" class="hero-cta">
+        <span>Swim Through All Figures</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </a>
+    </div>
+
+    <div class="hero-scroll-hint">
+      <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+    </div>
+  </section>
+
+  <!-- FILTER BAR ====================================================== -->
+  <div class="filter-bar sticky" id="filterBar">
+    <div class="filter-inner">
+
+      <div class="search-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search by name…" autocomplete="off" spellcheck="false">
+        <button class="search-clear" id="searchClear" aria-label="Clear">×</button>
+      </div>
+
+      <div class="series-filters" id="seriesFilters">
+        <button class="sf-btn active" data-series="all">
+          All <span class="sf-count" id="fc-all">236</span>
+        </button>
+        <button class="sf-btn sf-hero" data-series="Hero">
+          Hero <span class="sf-count" id="fc-hero"></span>
+        </button>
+        <button class="sf-btn sf-justice" data-series="Justice">
+          Justice <span class="sf-count" id="fc-justice"></span>
+        </button>
+        <button class="sf-btn sf-villain" data-series="Villain">
+          Villain <span class="sf-count" id="fc-villain"></span>
+        </button>
+        <button class="sf-btn sf-devil" data-series="Devil Knight">
+          Devil Knight <span class="sf-count" id="fc-devil"></span>
+        </button>
+        <button class="sf-btn sf-minor" data-series="Minor">
+          Minor <span class="sf-count" id="fc-minor"></span>
+        </button>
+        <button class="sf-btn sf-special" data-series="Special">
+          Special <span class="sf-count" id="fc-special"></span>
+        </button>
+      </div>
+
+      <div class="filter-meta">
+        <span class="results-count" id="resultsCount">236 figures</span>
+        <button class="reset-btn" id="resetBtn" style="display:none">Reset</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CATALOG GRID ==================================================== -->
+  <main class="catalog" id="catalog">
+    <div class="figure-grid" id="figureGrid">
+      <!-- Cards are injected by app.js -->
+    </div>
+    <div class="no-results-wrap" id="noResults" style="display:none">
+      <div class="no-results-icon">?</div>
+      <h3>No figures found</h3>
+      <p>Try a different search term or filter</p>
+      <button onclick="window.resetFilters()">Reset Filters</button>
+    </div>
+  </main>
+
+  <!-- MODAL =========================================================== -->
+  <div class="modal-overlay" id="modalOverlay" aria-hidden="true">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-box" role="dialog" aria-modal="true" id="modalBox">
+      <button class="modal-close" id="modalClose" aria-label="Close modal">×</button>
+      <button class="modal-nav mnav-prev" id="modalPrev" aria-label="Previous figure">‹</button>
+      <button class="modal-nav mnav-next" id="modalNext" aria-label="Next figure">›</button>
+
+      <div class="modal-image-zone">
+        <img id="modalImg" src="" alt="" loading="lazy">
+        <div class="modal-placeholder" id="modalPlaceholder">
+          <div class="mph-body">
+            <div class="mph-silhouette"></div>
+          </div>
+          <span class="mph-num" id="modalPhNum"></span>
+          <span class="mph-name" id="modalPhName"></span>
+        </div>
+      </div>
+
+      <div class="modal-details">
+        <div class="modal-series-badge" id="modalBadge"></div>
+        <h2 class="modal-fig-title" id="modalFigTitle"></h2>
+        <div class="modal-info-grid">
+          <div class="mig-row">
+            <span class="mig-label">Figure #</span>
+            <span class="mig-value" id="modalFigNum"></span>
+          </div>
+          <div class="mig-row">
+            <span class="mig-label">Character</span>
+            <span class="mig-value" id="modalChar"></span>
+          </div>
+          <div class="mig-row">
+            <span class="mig-label">Series</span>
+            <span class="mig-value" id="modalSeries"></span>
+          </div>
+          <div class="mig-row" id="modalPoseRow">
+            <span class="mig-label">Pose</span>
+            <span class="mig-value" id="modalPose"></span>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <a id="linkEbay" href="#" target="_blank" rel="noopener noreferrer" class="modal-action-btn ebay-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Search eBay
+          </a>
+          <a id="linkGoogle" href="#" target="_blank" rel="noopener noreferrer" class="modal-action-btn google-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Google Images
+          </a>
+          <a id="linkWiki" href="#" target="_blank" rel="noopener noreferrer" class="modal-action-btn wiki-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Kinnikuman Wiki
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER ========================================================== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">M.U.S.C.L.E.</div>
+      <p class="footer-desc">
+        All 236 M.U.S.C.L.E. figures cataloged. Originally <em>Kinkeshi</em> by Bandai Japan,
+        localized by Mattel as M.U.S.C.L.E. from 1985–1988. Based on
+        <em>Kinnikuman</em> manga by Yudetamago.
+      </p>
+      <p class="footer-copy">Fan reference catalog · Not affiliated with Mattel or Bandai</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
